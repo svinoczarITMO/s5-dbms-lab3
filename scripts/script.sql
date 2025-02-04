@@ -46,3 +46,10 @@ LEFT JOIN db_tablespaces db ON t.spcname = db.spcname
 GROUP BY t.spcname
 ORDER BY t.spcname;
 
+
+-- LAB 3; STEP 4; SUBSTEP 1 --
+insert into b (name, surname, age)
+    values 
+        ('Serge', 'K', 25),
+        ('Alexander', 'Babushkin', 20),
+        ('Pavel', 'Petrov', 66);
