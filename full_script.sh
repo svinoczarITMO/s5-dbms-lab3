@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+sh ./STEP1.sh
+sleep 2
+sh ./STEP2.sh
+sleep 2
+sh ./STEP3.sh
+sleep 2
+sh ./STEP4.sh
+sleep 2
