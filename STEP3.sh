@@ -80,10 +80,10 @@ cp "$DBMS_ROOT/configuration/pg_hba.conf" "$PGDATA_PRIMARY/pg_hba.conf"
 
 # --------------------------------------------------------------------------------------------
 
-echo "\nПереназначение tablespace cln78 на новый путь\n"
-
 PG_TBLSPC_DIR="$PGDATA_PRIMARY/pg_tblspc"
 mkdir -p "$PG_TBLSPC_DIR"
+
+rm -f "$PG_TBLSPC_DIR/$TS_OID"
 
 ln -s "$TS_CLN78_RECOVER" "$PG_TBLSPC_DIR/$TS_OID"
 
@@ -94,8 +94,6 @@ ls -l "$PG_TBLSPC_DIR" | grep "$TS_OID"
 
 echo "\nЗапуск основного узла и проверка\n"
 
-find "$PGDATA_PRIMARY" -type d -exec chmod 0700 {} \; 2>/dev/null || true
-find "$PGDATA_PRIMARY" -type f -exec chmod 0600 {} \; 2>/dev/null || true
 chmod 0700 "$PGDATA_PRIMARY"
 
 pg_ctl -D "$PGDATA_PRIMARY" start
