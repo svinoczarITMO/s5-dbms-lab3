@@ -35,7 +35,7 @@ echo "  target TS: $TS_CLN78_STANDBY"
 pg_basebackup \
   -h localhost -p $PRIMARY_PORT -U "$DB_USER"\
   -D "$PGDATA_STANDBY" \
-  -X stream -P \
+  -X stream \
   --tablespace-mapping="$SOURCE_TS_CLN78=$TS_CLN78_STANDBY"
 
 # --------------------------------------------------------------------------------------------
@@ -121,6 +121,10 @@ ls -lh "$BACKUP_FILE"
 
 # --------------------------------------------------------------------------------------------
 echo "\nЛогическое повреждение: DELETE на основном узле\n"
+
+ERROR_TIME_SQL=$(date '+%Y-%m-%d %H:%M:%S%z')
+echo "$ERROR_TIME_SQL" > "$DBMS_ROOT/error_time_pitr.txt"
+echo "ВРЕМЯ ПЕРЕД DELETE %2: $ERROR_TIME_SQL"
 
 psql -p $PRIMARY_PORT -d "$DB_NAME" -c "DELETE FROM test WHERE id % 2 = 0;"
 psql -p $PRIMARY_PORT -d "$DB_NAME" -c "SELECT * FROM test ORDER BY id;"

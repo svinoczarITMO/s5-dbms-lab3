@@ -77,7 +77,7 @@ rm -rf "$TS_CLN78_STANDBY"/*
 echo "Выполнение: pg_basebackup с tablespace-mapping"
 
 pg_basebackup -h localhost -p 9414 -U aleksandrbabushkin \
-  -D "$BASEBACKUP_DIR" -X stream -P \
+  -D "$BASEBACKUP_DIR" -X stream \
   --tablespace-mapping="$TS_CLN78=$TS_CLN78_STANDBY"
 
 # --------------------------------------------------------------------------------------------
